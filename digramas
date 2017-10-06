@@ -1,0 +1,16 @@
+
+Digramas impossiveis em portugues
+
+// Obrigatorios 
+// letras que são obrigatóriamente sucedidas ou precedidas por outra
+// ex:
+//  predecessor     letra     sucessor     
+//                   q         u
+// Proibidas combinaçoes que não são possiveis
+//
+
+
+Obrigatorios
+Predecessor     Letra     Sucessor   
+  Q->u
+  G-> vogal ou r ou l
