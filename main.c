@@ -228,91 +228,6 @@ static void test_encrypt_cbc(void)
     printf("FAILURE!\n");
   }
 }
-
-
-static void test_decrypt_ecb(void)
-{
-#ifdef AES128
-    uint8_t key[] = {
-    0x4b, 0x65, 0x79, 0x32,
-    0x47, 0x72, 0x6f, 0x75,
-    0x70, 0x31, 0x39, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00};
-
-    uint8_t in[] = {
-    0x97, 0xC2, 0xB2, 0x95, 0xDB, 0x73, 0x48, 0x87,
-    0x22, 0xFC, 0x12, 0xC1, 0x48, 0x20, 0xB6, 0x35,};
-#endif
-
-  uint8_t out[]  = {0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93, 0x17, 0x2a};
-  uint8_t buffer[16];
-
-    unsigned long contador1= 0; //variável de controle do loop
-    unsigned long contador2= 0; //variável de controle do loop
-    unsigned long contador3= 0; //variável de controle do loop
-    unsigned long contador4= 0; //variável de controle do loop
-    unsigned long contador5= 0; //variável de controle do loop
-    int valorchavetemp0=0;
-    int valorchavetemp1=0;
-    int valorchavetemp2=0;
-    int valorchavetemp3=0;
-    int valorchavetemp4=0;
- FILE* pFile;
-
-      for(contador1 = 0; contador1 <= 93; contador1++)
-    {
-        for(contador2 = 0; contador2 <= 93; contador2++)
-        {
-            for(contador3 = 0; contador3 <= 93; contador3++)
-            {
-                for(contador4 = 0; contador4 <= 93; contador4++)
-                {
-
-
-                    for(contador5 = 0; contador5 <= 2; contador5++)
-                    {
-                        valorchavetemp0 = key[15];
-                        valorchavetemp0 ++;
-                        key[15] = valorchavetemp0;
-                        AES_ECB_decrypt(in, key, buffer, 16);
-                        flag = teste(buffer);
-                        if(flag !=0 )
-                        {sprintf(fname,"resultados%.2x.txt",i);
-                          pFile = fopen(fname,"w");
-                           fprintf(pFile, "%s;%s\n", key, buffer);
-                            printf("\n%d ", valorchavetemp0);
-                            printf("%d ", valorchavetemp1);
-                            printf("%d ", valorchavetemp2);
-                            printf("%d ", valorchavetemp3);
-                            printf("%d\n", valorchavetemp4);
-
-
-                        }
-
-                    }
-                    valorchavetemp1 = key[14];
-                    valorchavetemp1 ++;
-                    key[14] = valorchavetemp1;
-                }
-
-                valorchavetemp2 = key[13];
-                    valorchavetemp2 ++;
-                    key[13] = valorchavetemp2;
-            }
-            valorchavetemp3 = key[12];
-                    valorchavetemp3 ++;
-                    key[12] = valorchavetemp3;
-
-        }
-      printf("\nLOL i am fast\n");
-      valorchavetemp4 = key[11];
-                    valorchavetemp4 ++;
-                    key[11] = valorchavetemp4;
-
-    }
-
-
-
 int teste(uint8_t *vet)
 {
     int flag =0;
@@ -362,6 +277,88 @@ int teste(uint8_t *vet)
 }
 
 
+static test_decrypt_ecb(void)
+{
+#ifdef AES128
+    uint8_t key[] = {
+    0x4b, 0x65, 0x79, 0x32,
+    0x47, 0x72, 0x6f, 0x75,
+    0x70, 0x31, 0x39, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00};
+
+    uint8_t in[] = {
+    0x97, 0xC2, 0xB2, 0x95, 0xDB, 0x73, 0x48, 0x87,
+    0x22, 0xFC, 0x12, 0xC1, 0x48, 0x20, 0xB6, 0x35,};
+#endif
+
+  uint8_t out[]  = {0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93, 0x17, 0x2a};
+  uint8_t buffer[16];
+
+    unsigned long contador1= 0; //variável de controle do loop
+    unsigned long contador2= 0; //variável de controle do loop
+    unsigned long contador3= 0; //variável de controle do loop
+    unsigned long contador4= 0; //variável de controle do loop
+    unsigned long contador5= 0; //variável de controle do loop
+    int valorchavetemp0=0;
+    int valorchavetemp1=0;
+    int valorchavetemp2=0;
+    int valorchavetemp3=0;
+    int valorchavetemp4=0;
+    int flag;
+    char fname[17];
+    FILE* pFile;
+
+      for(contador1 = 0; contador1 <= 93; contador1++)
+    {
+        for(contador2 = 0; contador2 <= 93; contador2++)
+        {
+            for(contador3 = 0; contador3 <= 93; contador3++)
+            {
+                for(contador4 = 0; contador4 <= 93; contador4++)
+                {
+                    for(contador5 = 0; contador5 <= 2; contador5++)
+                    {
+                        valorchavetemp0 = key[15];
+                        valorchavetemp0 ++;
+                        key[15] = valorchavetemp0;
+                        AES_ECB_decrypt(in, key, buffer, 16);
+                        flag = teste(buffer);
+                        if(flag !=0 )
+                        {sprintf(fname,"resultados%.2x.txt",contador1);
+                          pFile = fopen(fname,"w");
+                           fprintf(pFile, "%s;%s\n", key, buffer);
+                            printf("\n%d ", valorchavetemp0);
+                            printf("%d ", valorchavetemp1);
+                            printf("%d ", valorchavetemp2);
+                            printf("%d ", valorchavetemp3);
+                            printf("%d\n", valorchavetemp4);
 
 
+                        }
+
+                    }
+                    valorchavetemp1 = key[14];
+                    valorchavetemp1 ++;
+                    key[14] = valorchavetemp1;
+                }
+
+                valorchavetemp2 = key[13];
+                    valorchavetemp2 ++;
+                    key[13] = valorchavetemp2;
+            }
+            valorchavetemp3 = key[12];
+                    valorchavetemp3 ++;
+                    key[12] = valorchavetemp3;
+
+        }
+      printf("\nLOL i am fast\n");
+      valorchavetemp4 = key[11];
+                    valorchavetemp4 ++;
+                    key[11] = valorchavetemp4;
+
+    }
+
+
+
+return 0;
 }
